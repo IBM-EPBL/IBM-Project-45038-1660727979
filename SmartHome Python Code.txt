@@ -1,0 +1,36 @@
+int const sen_1 = A1;
+int LED_G = 7;
+int LED_R = 4;
+int BUZZ_1 = 9;
+int BULB = 2;
+int LDR = A3;
+int ldr=0;
+void setup(){
+  	pinMode(LED_G, OUTPUT);
+    pinMode(LED_R, OUTPUT);
+  	pinMode(BUZZ_1, OUTPUT);
+  	pinMode(BULB,OUTPUT);
+  	pinMode(LDR, INPUT);
+    Serial.begin(9600);
+}
+
+void loop(){
+    int Sen_1 = analogRead(sen_1);
+  	int ldr = analogRead(LDR);  	
+    Sen_1 = map(Sen_1, 300, 750, 0, 100);
+  	ldr = map(ldr, 0, 1000, 0, 100);
+  	Serial.println(ldr);
+  	//delay(50);
+    digitalWrite(LED_G,Sen_1 < 30 ? HIGH : LOW);
+  	digitalWrite(LED_R, Sen_1 >= 30 ? HIGH : LOW);
+  	digitalWrite(BULB, ldr <= 75 ? HIGH : LOW);
+  	if (Sen_1 >= 30)
+    {
+      tone(9,923);
+    }
+  	else
+    {
+      noTone(9);
+    }
+  delay(250);
+}
